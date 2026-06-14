@@ -76,14 +76,18 @@ The highlighter tokenizes these; everything else falls back to plain escaped tex
 
 ## Install — pick your supply-chain tolerance
 
-**A. From npm:**
+**A. From npm** — published with signed provenance, zero runtime deps:
 
 ```sh
 npm install ss-md
 ```
 
-No runtime dependencies. React is an optional peer dependency — only needed if you mount
-the `ss-md/react` island.
+(React is an optional peer dependency, only needed if you mount the `ss-md/react` island.)
+
+> **Real talk: I'd skip this and vendor it (Option B).** Yes, it's on npm for convenience — but
+> even a zero-dependency package is still a supply-chain link you're choosing to trust: a future
+> release, a hijacked account, a typosquatted name one fat-finger away. Code this small is code you
+> can read in one sitting and *own outright*. Cloning the files in is the move I'd actually make.
 
 **B. Vendor it (zero dependencies, including this one).** The compiler and highlighter
 are two self-contained files that import nothing. Copy them into your project and you
