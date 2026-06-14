@@ -1,6 +1,6 @@
 # ss-md
 
-[![npm](https://img.shields.io/npm/v/@seanstoves/ss-md?logo=npm&color=cb3837)](https://www.npmjs.com/package/@seanstoves/ss-md) [![downloads](https://img.shields.io/npm/dm/@seanstoves/ss-md)](https://www.npmjs.com/package/@seanstoves/ss-md) [![CI](https://github.com/SeanStoves/ss-md/actions/workflows/ci.yml/badge.svg)](https://github.com/SeanStoves/ss-md/actions/workflows/ci.yml) [![publish](https://github.com/SeanStoves/ss-md/actions/workflows/publish.yml/badge.svg)](https://github.com/SeanStoves/ss-md/actions/workflows/publish.yml) [![forks](https://img.shields.io/github/forks/SeanStoves/ss-md)](https://github.com/SeanStoves/ss-md/network/members)
+[![npm](https://img.shields.io/npm/v/@seanstoves/ss-md?logo=npm&color=brightgreen)](https://www.npmjs.com/package/@seanstoves/ss-md) [![downloads](https://img.shields.io/npm/dm/@seanstoves/ss-md?color=brightgreen)](https://www.npmjs.com/package/@seanstoves/ss-md) [![CI](https://github.com/SeanStoves/ss-md/actions/workflows/ci.yml/badge.svg)](https://github.com/SeanStoves/ss-md/actions/workflows/ci.yml) [![publish](https://github.com/SeanStoves/ss-md/actions/workflows/publish.yml/badge.svg)](https://github.com/SeanStoves/ss-md/actions/workflows/publish.yml) [![forks](https://img.shields.io/github/forks/SeanStoves/ss-md)](https://github.com/SeanStoves/ss-md/network/members)
 
 > **Provenance.** I wrote this code for my own site ([seanstoves.com](https://seanstoves.com)).
 > [Claude Code](https://claude.com/claude-code) did the work of ripping it out of the app,
