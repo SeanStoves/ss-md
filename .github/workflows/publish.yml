@@ -3,7 +3,7 @@
 # attaches signed provenance automatically. Nothing to leak.
 #
 # One-time setup (run once, after `npm login` locally):
-#   npm trust github ss-md --file publish.yml --repo SeanStoves/ss-md
+#   npm trust github @seanstoves/ss-md --file publish.yml --repo SeanStoves/ss-md
 # (or set it on npmjs.com: package Settings -> Trusted Publisher -> GitHub Actions ->
 #  org SeanStoves, repo ss-md, workflow publish.yml).
 #

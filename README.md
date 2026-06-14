@@ -79,10 +79,10 @@ The highlighter tokenizes these; everything else falls back to plain escaped tex
 **A. From npm** — published with signed provenance, zero runtime deps:
 
 ```sh
-npm install ss-md
+npm install @seanstoves/ss-md
 ```
 
-(React is an optional peer dependency, only needed if you mount the `ss-md/react` island.)
+(React is an optional peer dependency, only needed if you mount the `@seanstoves/ss-md/react` island.)
 
 > **Real talk: I'd skip this and vendor it (Option B).** Yes, it's on npm for convenience — but
 > even a zero-dependency package is still a supply-chain link you're choosing to trust: a future
@@ -117,7 +117,7 @@ links, images, ul/ol with nesting, blockquotes, hr) to escaped HTML. Fenced code
 blocks are run through the highlighter by language tag.
 
 ```ts
-import { renderMarkdown } from 'ss-md';
+import { renderMarkdown } from '@seanstoves/ss-md';
 
 const html = renderMarkdown('# Hi\n\nSome **bold** and a [link](https://example.com).');
 ```
@@ -130,7 +130,7 @@ or `src`, or `null` if its scheme isn't permitted. Used internally by
 from untrusted input.
 
 ```ts
-import { safeUrl } from 'ss-md';
+import { safeUrl } from '@seanstoves/ss-md';
 
 safeUrl('https://example.com');     // 'https://example.com'
 safeUrl('/blog/post');              // '/blog/post'
@@ -145,7 +145,7 @@ tokens (`tok-keyword`, `tok-string`, `tok-number`, `tok-comment`). Unknown langu
 return plain escaped text.
 
 ```ts
-import { highlight } from 'ss-md';
+import { highlight } from '@seanstoves/ss-md';
 
 highlight('const x = 1;', 'ts');
 ```
@@ -153,8 +153,8 @@ highlight('const x = 1;', 'ts');
 ### `PostBody` (optional React layer)
 
 ```tsx
-import { PostBody } from 'ss-md/react';
-import { renderMarkdown } from 'ss-md';
+import { PostBody } from '@seanstoves/ss-md/react';
+import { renderMarkdown } from '@seanstoves/ss-md';
 
 export default function Post({ markdown }: { markdown: string }) {
     return <PostBody html={renderMarkdown(markdown)} />;
@@ -175,9 +175,9 @@ the styling. Two ways:
    baked to concrete hex, scoped under `.post-content`:
 
    ```ts
-   import 'ss-md/styles/prose.css';   // prose + .tok-* token colors
-   import 'ss-md/styles/react.css';   // PostBody decorations (only if you use the island)
-   import 'ss-md/styles/tokens.css';  // optional: the named palette as :root vars to override
+   import '@seanstoves/ss-md/styles/prose.css';   // prose + .tok-* token colors
+   import '@seanstoves/ss-md/styles/react.css';   // PostBody decorations (only if you use the island)
+   import '@seanstoves/ss-md/styles/tokens.css';  // optional: the named palette as :root vars to override
    ```
 
    Or wrap your rendered output in a `.post-content` container and link the sheets

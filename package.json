@@ -1,5 +1,5 @@
 {
-    "name": "ss-md",
+    "name": "@seanstoves/ss-md",
     "version": "0.1.0",
     "description": "Zero-dependency markdown subset compiler + multi-language syntax highlighter. Escapes everything, never passes raw HTML, allowlists URL schemes — built to sit on an XSS boundary.",
     "license": "MIT",
