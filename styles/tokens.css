@@ -1,0 +1,25 @@
+/*
+ * The concrete palette the bundled prose/react sheets are built on. These are the
+ * Tailwind neutral/blue/violet/green/amber/orange defaults baked to hex so the lib
+ * carries no Tailwind dependency. Override any of these in your own :root to retheme
+ * — prose.css and react.css inline the same hex values, so override there too if you
+ * want the override to bite without editing the sheets. Kept here as the reference map.
+ */
+:root {
+    --escmd-text:            #d4d4d4; /* neutral-300 — body copy */
+    --escmd-heading:         #f5f5f5; /* neutral-100 */
+    --escmd-muted:           #a3a3a3; /* neutral-400 — blockquote */
+    --escmd-faint:           #737373; /* neutral-500 — comments, focus border */
+    --escmd-pre-text:        #e5e5e5; /* neutral-200 — block code base */
+    --escmd-surface:         #262626; /* neutral-800 — code background */
+    --escmd-surface-deep:    #171717; /* neutral-900 — copy button bg */
+    --escmd-border:          #404040; /* neutral-700 */
+    --escmd-link:            #60a5fa; /* blue-400 */
+    --escmd-link-hover:      #93c5fd; /* blue-300 */
+
+    --escmd-tok-comment:     #737373; /* neutral-500 */
+    --escmd-tok-keyword:     #a78bfa; /* violet-400 */
+    --escmd-tok-string:      #4ade80; /* green-400 */
+    --escmd-tok-number:      #fbbf24; /* amber-400 */
+    --escmd-inline-code:     #fb923c; /* orange-400 */
+}

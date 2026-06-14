@@ -1,0 +1,56 @@
+{
+    "name": "ss-md",
+    "version": "0.1.0",
+    "description": "Zero-dependency markdown subset compiler + multi-language syntax highlighter. Escapes everything, never passes raw HTML, allowlists URL schemes — built to sit on an XSS boundary.",
+    "license": "MIT",
+    "author": "Sean Stoves",
+    "type": "module",
+    "repository": { "type": "git", "url": "git+https://github.com/SeanStoves/ss-md.git" },
+    "bugs": { "url": "https://github.com/SeanStoves/ss-md/issues" },
+    "homepage": "https://github.com/SeanStoves/ss-md#readme",
+    "engines": { "node": ">=20" },
+    "keywords": [
+        "markdown",
+        "xss",
+        "highlighter",
+        "zero-dependency",
+        "secure"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./react": {
+            "types": "./dist/react/PostBody.d.ts",
+            "import": "./dist/react/PostBody.js"
+        },
+        "./styles/*": "./styles/*"
+    },
+    "files": [
+        "dist",
+        "styles",
+        "src",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "test": "node tests/markdown-xss.ts && node tests/highlight.ts",
+        "build": "tsc -p tsconfig.json",
+        "types": "tsc --noEmit",
+        "prepublishOnly": "npm run build"
+    },
+    "peerDependencies": {
+        "react": ">=18"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@types/react": ">=18",
+        "react": ">=18",
+        "typescript": ">=5.7"
+    }
+}

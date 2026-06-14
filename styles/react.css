@@ -1,0 +1,51 @@
+/*
+ * Decoration styles for the optional React island (PostBody): a copy button per code
+ * block, click-to-zoom images, and the gif click-to-play poster. Pair this with
+ * prose.css when you mount the React layer. Colors are the same baked Tailwind hexes.
+ */
+.post-content img { cursor: zoom-in; }
+.post-content .code-block { position: relative; }
+.post-content .code-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 0.375rem;
+    color: #d4d4d4;
+    background: #171717;
+    border: 1px solid #404040;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+}
+.post-content .code-copy:hover { color: #f5f5f5; border-color: #737373; }
+.post-content .code-copy:focus-visible { color: #f5f5f5; border-color: #a3a3a3; outline: none; }
+.post-content .code-copy.copied { color: #4ade80; border-color: #4ade80; }
+.post-content .code-copy svg { width: 1rem; height: 1rem; pointer-events: none; }
+/* gif click-to-play: canvas poster (frame 0) + play overlay, wired up in PostBody */
+.post-content .gif-wrap { position: relative; display: inline-block; max-width: 100%; line-height: 0; cursor: pointer; }
+.post-content .gif-wrap > canvas, .post-content .gif-wrap > img { display: block; max-width: 100%; height: auto; border-radius: 0.5rem; }
+.post-content .gif-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.25rem;
+    height: 4.25rem;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 9999px;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    transition: background 0.15s, transform 0.15s;
+}
+.post-content .gif-wrap:hover .gif-play { background: rgba(0, 0, 0, 0.7); transform: translate(-50%, -50%) scale(1.05); }
+.post-content .gif-play:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
+.post-content .gif-play svg { width: 1.9rem; height: 1.9rem; margin-left: 0.18rem; }

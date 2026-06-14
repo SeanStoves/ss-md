@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ss-md in the browser</title>
+<!-- bring the bundled sheets; tokens is optional (the named palette map) -->
+<link rel="stylesheet" href="../styles/prose.css">
+<style>
+    body { background: #0a0a0a; margin: 0; padding: 2rem; }
+    main { max-width: 46rem; margin: 0 auto; }
+</style>
+
+<main>
+    <!-- renderMarkdown output drops straight into .post-content; it's already escaped -->
+    <div class="post-content" id="out"></div>
+</main>
+
+<script type="module">
+    // after `npm run build`, dist/ is plain ESM you can serve as-is
+    import { renderMarkdown } from '../dist/index.js';
+
+    const source = `# Hello from ss-md
+
+Every text run is **escaped**. A pasted \`<script>alert(1)</script>\` is inert.
+
+\`\`\`json
+{ "name": "ss-md", "secure": true, "deps": 0 }
+\`\`\`
+
+> Bring the bundled CSS, or style \`.post-content\` and \`.tok-*\` yourself.`;
+
+    document.getElementById('out').innerHTML = renderMarkdown(source);
+</script>
