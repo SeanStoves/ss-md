@@ -71,7 +71,10 @@ function linkOrImage(src: string, isImg: boolean, depth: number) {
         const gif = /\.gif(?:[?#]|$)/i.test(url) ? ' class="gif-player"' : '';
         return { html: `<img src="${escAttr(url)}" alt="${escAttr(m[1])}"${title} loading="lazy"${gif}>`, len: m[0].length };
     }
-    return { html: `<a href="${escAttr(url)}"${title} rel="noopener noreferrer">${inline(m[1], depth + 1)}</a>`, len: m[0].length };
+    // send off-site links to a new tab, keep my own pages in the same one. rel is already
+    // locked, so target="_blank" can't be turned into a window.opener tabnabbing trick
+    const offsite = /^https?:/i.test(url) ? ' target="_blank"' : '';
+    return { html: `<a href="${escAttr(url)}"${title}${offsite} rel="noopener noreferrer">${inline(m[1], depth + 1)}</a>`, len: m[0].length };
 }
 
 /* walk the string char by char, escape the literal runs, wrap the markdown bits in
