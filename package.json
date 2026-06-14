@@ -1,14 +1,21 @@
 {
     "name": "@seanstoves/ss-md",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Zero-dependency markdown subset compiler + multi-language syntax highlighter. Escapes everything, never passes raw HTML, allowlists URL schemes — built to sit on an XSS boundary.",
     "license": "MIT",
     "author": "Sean Stoves",
     "type": "module",
-    "repository": { "type": "git", "url": "git+https://github.com/SeanStoves/ss-md.git" },
-    "bugs": { "url": "https://github.com/SeanStoves/ss-md/issues" },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SeanStoves/ss-md.git"
+    },
+    "bugs": {
+        "url": "https://github.com/SeanStoves/ss-md/issues"
+    },
     "homepage": "https://github.com/SeanStoves/ss-md#readme",
-    "engines": { "node": ">=20" },
+    "engines": {
+        "node": ">=20"
+    },
     "keywords": [
         "markdown",
         "xss",
