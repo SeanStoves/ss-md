@@ -1,5 +1,7 @@
 # ss-md
 
+[![npm](https://img.shields.io/npm/v/@seanstoves/ss-md?logo=npm&color=cb3837)](https://www.npmjs.com/package/@seanstoves/ss-md) [![CI](https://github.com/SeanStoves/ss-md/actions/workflows/ci.yml/badge.svg)](https://github.com/SeanStoves/ss-md/actions/workflows/ci.yml)
+
 > **Provenance.** I wrote this code for my own site ([seanstoves.com](https://seanstoves.com)).
 > [Claude Code](https://claude.com/claude-code) did the work of ripping it out of the app,
 > decoupling it, and cleaning it up for distribution — I reviewed every line, but that's the
