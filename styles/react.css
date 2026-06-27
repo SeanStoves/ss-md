@@ -25,6 +25,28 @@
 .post-content .code-copy:focus-visible { color: #f5f5f5; border-color: #a3a3a3; outline: none; }
 .post-content .code-copy.copied { color: #4ade80; border-color: #4ade80; }
 .post-content .code-copy svg { width: 1rem; height: 1rem; pointer-events: none; }
+/* heading deep-links: hover a heading -> a copy-link button fades in (wired in PostBody).
+ * hidden until hover; brand green to match the rest of the chrome. */
+.post-content .heading-anchor {
+    margin-left: 0.4rem;
+    padding: 0.15rem;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 0;
+    color: #4ade80;
+    background: none;
+    border: 0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.12s, color 0.12s;
+}
+.post-content :is(h1, h2, h3, h4, h5, h6):hover .heading-anchor,
+.post-content .heading-anchor:focus-visible { opacity: 1; outline: none; }
+.post-content .heading-anchor:hover { color: #86efac; }
+.post-content .heading-anchor.copied { color: #4ade80; opacity: 1; }
+.post-content .heading-anchor svg { width: 0.95rem; height: 0.95rem; pointer-events: none; }
 /* gif click-to-play: canvas poster (frame 0) + play overlay, wired up in PostBody */
 .post-content .gif-wrap { position: relative; display: inline-block; max-width: 100%; line-height: 0; cursor: pointer; }
 .post-content .gif-wrap > canvas, .post-content .gif-wrap > img { display: block; max-width: 100%; height: auto; border-radius: 0.5rem; }

@@ -4,8 +4,9 @@
  * question — is this URL safe? — and safeUrl answers it. No marked, no DOMPurify, no
  * parser dep, so nothing here is going to wake me up at 3am with a CVE.
  *
- * Handles headings, paragraphs, bold/italic, inline + fenced code, links, images,
- * ul/ol, blockquotes, hr. That's a blog. You don't need the rest of CommonMark.
+ * Handles headings (with auto slug ids for #anchor deep-links), paragraphs,
+ * bold/italic, inline + fenced code, links, images, ul/ol, blockquotes, hr. That's
+ * a blog. You don't need the rest of CommonMark.
  */
 
 import { highlight } from './highlight.ts';
@@ -169,7 +170,36 @@ function parseList(lines: string[], start: number, depth: number): { html: strin
     return { html: `<${tag}>${items.map((it) => `<li>${it}</li>`).join('')}</${tag}>`, next: i };
 }
 
-export function renderMarkdown(input: string, depth = 0): string {
+/* heading text -> url slug. reduce inline markdown to its visible text, lowercase,
+ * fold every non-alphanumeric run to a single '-', trim. the result is [a-z0-9-]
+ * ONLY — that charset restriction is the whole reason the slug drops into an id=""
+ * attribute with nothing left to escape. a heading with no slug-able chars (emoji or
+ * punctuation only) falls back to 'section'. */
+function slugify(text: string): string {
+    const slug = text
+        .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1') // [label](url) / ![alt](src) -> just the label
+        .replace(/[*_~`]/g, '')                    // emphasis + inline-code markers
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 64)
+        .replace(/-+$/, '');                       // a 64-char cut can land mid-word on a '-'
+    return slug || 'section';
+}
+
+/* unique within one document: walk a counter until the id is free, so duplicate
+ * headings — and a slug that happens to equal an earlier "foo 1" — never share an
+ * anchor. deterministic in document order, so the same post always yields the same
+ * ids (stable deep-links, matching SSR/CSR). */
+function headingId(text: string, used: Set<string>): string {
+    const base = slugify(text);
+    let id = base;
+    for (let n = 1; used.has(id); n++) id = `${base}-${n}`;
+    used.add(id);
+    return id;
+}
+
+export function renderMarkdown(input: string, depth = 0, used: Set<string> = new Set()): string {
     let src = input.length > MAX_INPUT ? input.slice(0, MAX_INPUT) : input;
     src = src.replace(/\r\n?/g, '\n');
     const lines = src.split('\n');
@@ -196,7 +226,13 @@ export function renderMarkdown(input: string, depth = 0): string {
         }
 
         const h = /^(#{1,6})\s+(.*)$/.exec(line);
-        if (h) { const lv = h[1].length; blocks.push(`<h${lv}>${inline(h[2].trim())}</h${lv}>`); i++; continue; }
+        if (h) {
+            const lv = h[1].length;
+            const text = h[2].trim();
+            // id is slugify()'s output -> [a-z0-9-] only, safe to emit raw in the attribute
+            blocks.push(`<h${lv} id="${headingId(text, used)}">${inline(text)}</h${lv}>`);
+            i++; continue;
+        }
 
         if (HR.test(line)) { blocks.push('<hr>'); i++; continue; }
 
@@ -207,7 +243,7 @@ export function renderMarkdown(input: string, depth = 0): string {
             // '>' blows the stack with a RangeError — well under MAX_INPUT, so the cap matters.
             // past it, stop recursing and dump the rest of the body as one escaped paragraph.
             const body = buf.join('\n');
-            const inner = depth < MAX_DEPTH ? renderMarkdown(body, depth + 1) : `<p>${inline(body.trim())}</p>`;
+            const inner = depth < MAX_DEPTH ? renderMarkdown(body, depth + 1, used) : `<p>${inline(body.trim())}</p>`;
             blocks.push(`<blockquote>${inner}</blockquote>`);
             continue;
         }
