@@ -17,6 +17,8 @@
 .post-content h1 { font-size: 1.6rem; }
 .post-content h2 { font-size: 1.35rem; }
 .post-content h3 { font-size: 1.15rem; }
+/* deep-linkable headings: each heading carries a slug id; keep a #anchor landing clear of the top edge */
+.post-content :is(h1, h2, h3, h4, h5, h6) { scroll-margin-top: 5rem; }
 .post-content a { color: #60a5fa; text-decoration: underline; text-underline-offset: 2px; }
 .post-content a:hover { color: #93c5fd; }
 .post-content ul, .post-content ol { padding-left: 1.5rem; }

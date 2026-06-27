@@ -14,6 +14,8 @@ const COPY_SVG =
 const CHECK_SVG =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 const PLAY_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+const LINK_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
 
 export function PostBody({ html }: { html: string }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -112,6 +114,39 @@ export function PostBody({ html }: { html: string }) {
                 img.style.display = '';
                 parent.insertBefore(img, wrap); // unwrap, put the img back
                 wrap.remove();
+            });
+        });
+
+        // hover a heading -> a link button fades in; click copies the deep-link to that
+        // section (the markdown compiler already gave each heading a slug id). button lives
+        // inside the heading; cleanup removes it so re-running the effect is idempotent.
+        root.querySelectorAll<HTMLElement>('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]').forEach((h) => {
+            const label = h.textContent?.trim() ?? '';
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'heading-anchor';
+            btn.setAttribute('aria-label', label ? `Copy link to section: ${label}` : 'Copy link to section');
+            btn.innerHTML = LINK_SVG;
+            let revert: ReturnType<typeof setTimeout> | undefined;
+            const onCopy = async () => {
+                const url = `${location.origin}${location.pathname}#${h.id}`;
+                try {
+                    await navigator.clipboard.writeText(url);
+                    history.replaceState(null, '', `#${h.id}`); // reflect the section in the URL bar
+                    btn.innerHTML = CHECK_SVG;
+                    btn.classList.add('copied');
+                    clearTimeout(revert);
+                    revert = setTimeout(() => { btn.innerHTML = LINK_SVG; btn.classList.remove('copied'); }, 1500);
+                } catch {
+                    /* no clipboard — insecure context or denied. nothing to do */
+                }
+            };
+            btn.addEventListener('click', onCopy);
+            h.appendChild(btn);
+            cleanups.push(() => {
+                clearTimeout(revert);
+                btn.removeEventListener('click', onCopy);
+                btn.remove();
             });
         });
 
